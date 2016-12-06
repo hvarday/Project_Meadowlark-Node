@@ -7,7 +7,9 @@ app.set('view engine','handlebars');
 
 //modifying the view
 
-var fortunes=[ "Conquer your fear","Blah Blah","Blahhhhh"];
+//fortunecookie moved to module '/lib/fortune.js'
+
+var fortune=require('./lib/fortune.js');
 
 // For sending data directly to client without any changes
 // Includes static elements like logo for the website
@@ -26,9 +28,7 @@ app.get('/',function(req,res){
 //sending fortune along using handlebars
 
 app.get('/about',function(req,res){
-	var randfortune=fortunes[Math.floor(Math.random()*fortunes.length)];
-
-	res.render('about',{fortune: randfortune});
+	res.render('about',{fortune: fortune.getfortune()});
 });
 
 app.get('/about/sam',function(req,res){
