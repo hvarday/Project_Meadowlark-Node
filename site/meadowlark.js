@@ -20,15 +20,29 @@ app.use(express.static(__dirname+'/public'));
 app.set('port',process.env.PORT||3000);
 
 
+//For testing
+// middleware to detect tes=1 in the query string
+//important that it should appear before we assign any routes
+
+app.use(function(req,res,next){
+	res.locals.showTests = app.get('env') !== 'production' && req.query.test ==='1';
+	next();
+});
+
+/////////////////////////////////////
+
+
+//Routing using render (handlebars) instead of assigning type and send(express)
+
 app.get('/',function(req,res){
 	res.render('home');
 });
 
 
-//sending fortune along using handlebars
-
+//sending fortune cookies (Randomly) along using handlebars
+// Also includes test for contact link in about page
 app.get('/about',function(req,res){
-	res.render('about',{fortune: fortune.getfortune()});
+	res.render('about',{fortune: fortune.getfortune(), pageTestScript: '/qa/tests-about.js'});
 });
 
 app.get('/about/sam',function(req,res){
