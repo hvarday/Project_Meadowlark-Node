@@ -4,7 +4,8 @@ var handlebars= require('express3-handlebars').create({defaultLayout:'main'});
 
 app.engine('handlebars',handlebars.engine);
 app.set('view engine','handlebars');
-
+var path = require('path');
+app.set('views', [path.join(__dirname, 'views'), path.join(__dirname, 'views','tours')]);
 //modifying the view
 
 //fortunecookie moved to module '/lib/fortune.js'
@@ -50,6 +51,15 @@ app.get('/about/sam',function(req,res){
 	res.send('Hey , Im sam');
 });
 
+//cross page testing
+app.get('/hood-river',function(req,res){
+	res.render('hood-river');
+});
+
+app.get('tours/request-group-rates',function(req,res){
+	res.render('tours/request-group-rates');
+});
+
 //custom 404 page
 app.use(function(req,res,next){
 	res.status(404);
@@ -61,15 +71,6 @@ app.use(function(req,res,next){
 app.use(function(req,res){
 	res.status(500);
 	res.render('500');
-});
-
-//cross page testing
-app.get('/hood-river',function(req,res){
-	res.render('views/tours/hood-river');
-});
-
-app.get('tours/request-group-rates',function(req,res){
-	res.render('tours/request-group-rates');
 });
 
 
