@@ -52,7 +52,6 @@ app.get('/about/sam',function(req,res){
 
 //custom 404 page
 app.use(function(req,res,next){
-	res.type('text/plain');
 	res.status(404);
 	res.render('404');
 });
@@ -60,10 +59,20 @@ app.use(function(req,res,next){
 //custom 500 page
 
 app.use(function(req,res){
-	res.type('text/plain');
 	res.status(500);
 	res.render('500');
 });
+
+//cross page testing
+app.get('/hood-river',function(req,res){
+	res.render('views/tours/hood-river');
+});
+
+app.get('tours/request-group-rates',function(req,res){
+	res.render('tours/request-group-rates');
+});
+
+
 
 app.listen(app.get('port'),function(){
 	console.log('Express started on http://localhost:3000'
