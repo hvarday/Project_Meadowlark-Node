@@ -57,7 +57,7 @@ app.get('/hood-river',function(req,res){
 });
 
 app.get('tours/request-group-rates',function(req,res){
-	res.render('tours/request-group-rates');
+	res.render('request-group-rates');
 });
 
 //custom 404 page
